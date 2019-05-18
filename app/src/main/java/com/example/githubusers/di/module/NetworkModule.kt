@@ -2,6 +2,8 @@ package com.example.githubusers.di.module
 
 import android.content.Context
 import com.example.githubusers.Constants
+import com.example.githubusers.remote.ApiClient
+import com.example.githubusers.remote.UserRepository
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -52,5 +54,17 @@ class NetworkModule {
     @Singleton
     fun providesRxJavaCallAdapterFactory(): RxJava2CallAdapterFactory {
         return RxJava2CallAdapterFactory.create()
+    }
+
+    @Provides
+    @Singleton
+    fun providesUserRepository(apiClient: ApiClient):UserRepository{
+        return UserRepository(apiClient)
+    }
+
+    @Provides
+    @Singleton
+    fun providesApiClient(retrofit: Retrofit): ApiClient {
+        return retrofit.create(ApiClient::class.java)
     }
 }
