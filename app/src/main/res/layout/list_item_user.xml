@@ -14,7 +14,7 @@
             android:layout_margin="8dp"
             tools:text="User Login"
             android:gravity="center_vertical"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:id="@+id/user_login"
             android:textSize="24sp"
             android:textStyle="bold"
