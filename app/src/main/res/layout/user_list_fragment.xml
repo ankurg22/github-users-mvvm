@@ -4,11 +4,14 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="16dp"
         tools:context=".ui.userlist.UserListFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/userRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Hello"/>
+            tools:listitem="@layout/list_item_user">
+    </androidx.recyclerview.widget.RecyclerView>
 
 </FrameLayout>
