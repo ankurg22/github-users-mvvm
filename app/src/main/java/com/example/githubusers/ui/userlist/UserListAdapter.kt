@@ -1,12 +1,16 @@
 package com.example.githubusers.ui.userlist
 
+import android.content.Intent
+import android.provider.ContactsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.githubusers.Constants
 import com.example.githubusers.R
 import com.example.githubusers.model.User
+import com.example.githubusers.ui.ProfileActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item_user.view.*
 
@@ -26,27 +30,23 @@ class UserListAdapter : RecyclerView.Adapter<UserListAdapter.UserListViewHolder>
         holder.bind(user)
     }
 
-    class UserListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
+    class UserListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val view = itemView
-
-        init {
-            view.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View?) {
-            Log.d("UserListAdapter", "Item clicked")
-        }
 
         fun bind(user: User) {
             view.user_login.text = user.login
             Picasso.get()
                 .load(user.avatarUrl)
                 .into(view.user_profile)
+            view.setOnClickListener {
+                val intent = Intent(itemView.context, ProfileActivity::class.java)
+                intent.putExtra(Constants.KEY_USER_LOGIN, user.login)
+                itemView.context.startActivity(intent)
+            }
         }
     }
 
-    fun addData(data :List<User>){
+    fun addData(data: List<User>) {
         userList.addAll(data)
         notifyDataSetChanged()
     }

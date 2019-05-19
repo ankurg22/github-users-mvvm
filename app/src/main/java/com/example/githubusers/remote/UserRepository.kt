@@ -27,4 +27,21 @@ class UserRepository @Inject constructor(apiClient: ApiClient) {
         })
         return data
     }
+
+    fun fetchUser(login: String): MutableLiveData<User> {
+        val data = MutableLiveData<User>()
+        api.fetchUser(login).enqueue(object : Callback<User> {
+
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) {
+                    data.value = response.body()
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+            }
+
+        })
+        return data
+    }
 }

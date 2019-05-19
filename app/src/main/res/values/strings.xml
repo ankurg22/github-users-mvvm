@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Github Users</string>
+    <string name="label_profile_activity">User Profile</string>
+    <string name="followers">Followers (%1$s)</string>
+    <string name="following">Following (%1$s)</string>
+    <string name="repository">Repositories (%1$s)</string>
+    <string name="gist">Gists (%1$s)</string>
 </resources>
