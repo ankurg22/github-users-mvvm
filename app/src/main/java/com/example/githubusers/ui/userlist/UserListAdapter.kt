@@ -10,8 +10,8 @@ import com.example.githubusers.model.User
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item_user.view.*
 
-class UserListAdapter(val userList: List<User>) : RecyclerView.Adapter<UserListAdapter.UserListViewHolder>() {
-
+class UserListAdapter : RecyclerView.Adapter<UserListAdapter.UserListViewHolder>() {
+    val userList = ArrayList<User>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_user, parent, false)
         return UserListViewHolder(view)
@@ -44,7 +44,10 @@ class UserListAdapter(val userList: List<User>) : RecyclerView.Adapter<UserListA
                 .load(user.avatarUrl)
                 .into(view.user_profile)
         }
+    }
 
-
+    fun addData(data :List<User>){
+        userList.addAll(data)
+        notifyDataSetChanged()
     }
 }

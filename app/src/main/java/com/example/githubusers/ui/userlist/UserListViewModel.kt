@@ -10,8 +10,8 @@ class UserListViewModel @Inject constructor(userRepository: UserRepository) : Vi
     private var repo = userRepository
     private lateinit var userList: LiveData<List<User>>
 
-    fun loadUsers(): LiveData<List<User>> {
-        userList = repo.fetchUserList(0)
+    fun loadUsers(sinceId: Int): LiveData<List<User>> {
+        userList = repo.fetchUserList(sinceId)
         return userList
     }
 }
