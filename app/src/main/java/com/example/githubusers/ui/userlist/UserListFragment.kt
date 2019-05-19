@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.githubusers.Constants
 
 import com.example.githubusers.R
 import com.example.githubusers.model.User
@@ -26,10 +27,27 @@ class UserListFragment : Fragment() {
     lateinit var viewModel: UserListViewModel
     var loading: Boolean = false
     lateinit var adapter: UserListAdapter
+    lateinit var login: String
+
+    companion object {
+        fun newInstance(mode: String, login: String): UserListFragment {
+            val bundle = Bundle()
+            bundle.putString(Constants.KEY_USER_FRAGMENT_MODE, mode)
+            bundle.putString(Constants.KEY_USER_LOGIN, login)
+            val fragment = UserListFragment()
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
+    override fun onAttach(context: Context?) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.user_list_fragment, container, false)
     }
@@ -41,25 +59,23 @@ class UserListFragment : Fragment() {
         userRecyclerView.layoutManager = LinearLayoutManager(activity)
         adapter = UserListAdapter()
         userRecyclerView.adapter = adapter
-        fetchUser(0)
 
-        userRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                val linearLayoutManager = userRecyclerView.layoutManager as LinearLayoutManager?
-                if (!loading && linearLayoutManager!!.itemCount <= linearLayoutManager.findLastVisibleItemPosition() + 2) {
-                    loading = true
-                    val lastUser = adapter.userList.last()
-                    fetchUser(lastUser.id)
-                }
+        val mode = arguments?.getString(Constants.KEY_USER_FRAGMENT_MODE)
+        val login = arguments?.getString(Constants.KEY_USER_LOGIN)
+        when (mode) {
+            Constants.MODE_ALL -> {
+                fetchUser(0)
+                userRecyclerView.addOnScrollListener(listener)
             }
-        })
-    }
 
-    override fun onAttach(context: Context?) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
+            Constants.MODE_FOLLOWERS -> {
+                fetchFollowers(login!!)
+            }
+
+            Constants.MODE_FOLLOWING -> {
+                fetchFollowing(login!!)
+            }
+        }
     }
 
     fun fetchUser(id: Int) {
@@ -68,6 +84,32 @@ class UserListFragment : Fragment() {
             loading = false
         })
 
+    }
+
+    fun fetchFollowers(login: String) {
+        viewModel.loadFollowers(login).observe(this, Observer {
+            adapter.addData(it)
+        })
+    }
+
+    fun fetchFollowing(login: String) {
+        viewModel.loadFollowing(login).observe(this, Observer {
+            adapter.addData(it)
+        })
+    }
+
+    //Listener for pagination. Used only in ALL mode only
+    val listener = object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+
+            val linearLayoutManager = userRecyclerView.layoutManager as LinearLayoutManager?
+            if (!loading && linearLayoutManager!!.itemCount <= linearLayoutManager.findLastVisibleItemPosition() + 2) {
+                loading = true
+                val lastUser = adapter.userList.last()
+                fetchUser(lastUser.id)
+            }
+        }
     }
 
 }

@@ -24,8 +24,8 @@ class ProfileActivity : AppCompatActivity() {
 
         val adapter = ProfilePagerAdapter(supportFragmentManager)
         adapter.addPage(OverviewFragment.newInstance(userLogin), "Overview")
-        adapter.addPage(UserListFragment(), "Following")
-        adapter.addPage(UserListFragment(), "Followers")
+        adapter.addPage(UserListFragment.newInstance(Constants.MODE_FOLLOWING, userLogin), "Following")
+        adapter.addPage(UserListFragment.newInstance(Constants.MODE_FOLLOWERS, userLogin), "Followers")
         vp_profile.adapter = adapter
 
         tabLayout.setupWithViewPager(vp_profile)

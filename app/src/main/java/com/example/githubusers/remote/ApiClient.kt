@@ -13,4 +13,10 @@ interface ApiClient {
 
     @GET("/users/{login}")
     fun fetchUser(@Path("login") login: String): Call<User>
+
+    @GET("/users/{login}/followers")
+    fun fetchFollowers(@Path("login") login: String): Call<List<User>>
+
+    @GET("/users/{login}/following")
+    fun fetchFollowing(@Path("login") login: String): Call<List<User>>
 }

@@ -2,6 +2,7 @@ package com.example.githubusers.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.githubusers.Constants
 import com.example.githubusers.R
 import com.example.githubusers.ui.userlist.UserListFragment
 import dagger.android.AndroidInjection
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         supportFragmentManager.beginTransaction()
-            .replace(activity_content.id, UserListFragment())
-            .commit()
+                .replace(activity_content.id, UserListFragment.newInstance(Constants.MODE_ALL, ""))
+                .commit()
     }
 }

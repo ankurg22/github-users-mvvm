@@ -44,4 +44,38 @@ class UserRepository @Inject constructor(apiClient: ApiClient) {
         })
         return data
     }
+
+    fun fetchFollowers(login: String): MutableLiveData<List<User>> {
+        val data = MutableLiveData<List<User>>()
+        api.fetchFollowers(login).enqueue(object : Callback<List<User>> {
+
+            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                if (response.isSuccessful) {
+                    data.value = response.body()
+                }
+            }
+
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+            }
+
+        })
+        return data
+    }
+
+    fun fetchFollowing(login: String): MutableLiveData<List<User>> {
+        val data = MutableLiveData<List<User>>()
+        api.fetchFollowing(login).enqueue(object : Callback<List<User>> {
+
+            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                if (response.isSuccessful) {
+                    data.value = response.body()
+                }
+            }
+
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+            }
+
+        })
+        return data
+    }
 }
