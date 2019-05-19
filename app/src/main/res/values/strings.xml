@@ -6,4 +6,9 @@
     <string name="repository">Repositories (%1$s)</string>
     <string name="gist">Gists (%1$s)</string>
     <string name="action_about">About Me</string>
+    <string name="error">Error while fetching</string>
+    <string name="retry">Retry</string>
+    <string name="overview">Overview</string>
+    <string name="following_title">Following</string>
+    <string name="followers_title">Followers</string>
 </resources>

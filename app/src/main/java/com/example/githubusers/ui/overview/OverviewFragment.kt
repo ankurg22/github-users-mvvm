@@ -1,22 +1,27 @@
 package com.example.githubusers.ui.overview
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.example.githubusers.Constants
-
+import androidx.lifecycle.ViewModelProviders
 import com.example.githubusers.R
+import com.example.githubusers.databinding.OverviewFragmentBinding
+import com.example.githubusers.ui.UserViewModel
 import com.example.githubusers.ui.ViewModelFactory
+import com.example.githubusers.utils.Constants
 import com.squareup.picasso.Picasso
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.overview_fragment.*
 import javax.inject.Inject
 
+/**
+ * Presents a card with basic profile of user.
+ */
 class OverviewFragment : Fragment() {
 
     companion object {
@@ -31,14 +36,15 @@ class OverviewFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    lateinit var viewModel: OverviewViewModel
-    lateinit var login: String
+    private lateinit var viewModel: OverviewViewModel
+    private lateinit var binding: OverviewFragmentBinding
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.overview_fragment, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.overview_fragment, container, false)
+        return binding.root
     }
 
     override fun onAttach(context: Context?) {
@@ -52,32 +58,14 @@ class OverviewFragment : Fragment() {
                 .get(OverviewViewModel::class.java)
 
 
-        login = arguments?.getString(Constants.KEY_USER_LOGIN)!!
-        viewModel.loadUser(login).observe(this, Observer {
-            with(it) {
-                login_text.text = login
-                name_text.text = name
-                followers_text.text = getString(R.string.followers, followers)
-                following_text.text = getString(R.string.following, following)
-                repository_text.text = getString(R.string.repository, repos)
-                gist_text.text = getString(R.string.gist, gists)
-
-                if (bio != null) bio_text.text = bio
-                if (location != null) {
-                    location_frame.visibility = View.VISIBLE
-                    location_text.text = location
-                }
-                if (company != null) {
-                    company_frame.visibility = View.VISIBLE
-                    company_text.text = company
-                }
-                if (blog != null) {
-                    blog_frame.visibility = View.VISIBLE
-                    blog_text.text = blog
-                }
-
-                Picasso.get().load(avatarUrl).into(profile_image)
-            }
+        //Get login parameter form intent and set in data binding
+        val login = arguments?.getString(Constants.KEY_USER_LOGIN)!!
+        viewModel.loadUser(login)
+        viewModel.user.observe(this, Observer {
+            val userViewModel = UserViewModel()
+            userViewModel.bind(it)
+            binding.user = userViewModel
+            Picasso.get().load(it.avatarUrl).into(profile_image)
         })
     }
 

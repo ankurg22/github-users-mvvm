@@ -14,6 +14,5 @@ data class User(
     @SerializedName("followers") val followers: String,
     @SerializedName("following") val following: String,
     @SerializedName("public_repos") val repos: String,
-    @SerializedName("public_gists") val gists: String,
-    @SerializedName("url") val url: String
+    @SerializedName("public_gists") val gists: String
 )

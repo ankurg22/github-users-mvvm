@@ -1,24 +1,27 @@
 package com.example.githubusers.ui.userlist
 
 import android.content.Intent
-import android.provider.ContactsContract
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.githubusers.Constants
 import com.example.githubusers.R
+import com.example.githubusers.databinding.ListItemUserBinding
 import com.example.githubusers.model.User
 import com.example.githubusers.ui.ProfileActivity
+import com.example.githubusers.ui.UserViewModel
+import com.example.githubusers.utils.Constants
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.list_item_user.view.*
 
 class UserListAdapter : RecyclerView.Adapter<UserListAdapter.UserListViewHolder>() {
-    val userList = ArrayList<User>()
+    private var userList = ArrayList<User>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_user, parent, false)
-        return UserListViewHolder(view)
+        val binding: ListItemUserBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context), R.layout.list_item_user, parent, false
+        )
+
+        return UserListViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -30,15 +33,13 @@ class UserListAdapter : RecyclerView.Adapter<UserListAdapter.UserListViewHolder>
         holder.bind(user)
     }
 
-    class UserListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val view = itemView
+    class UserListViewHolder(private val binding: ListItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
+        private val viewModel = UserViewModel()
 
         fun bind(user: User) {
-            view.user_login.text = user.login
-            Picasso.get()
-                .load(user.avatarUrl)
-                .into(view.user_profile)
-            view.setOnClickListener {
+            viewModel.bind(user)
+            binding.viewModel = viewModel
+            binding.root.setOnClickListener {
                 val intent = Intent(itemView.context, ProfileActivity::class.java)
                 intent.putExtra(Constants.KEY_USER_LOGIN, user.login)
                 itemView.context.startActivity(intent)
@@ -49,5 +50,9 @@ class UserListAdapter : RecyclerView.Adapter<UserListAdapter.UserListViewHolder>
     fun addData(data: List<User>) {
         userList.addAll(data)
         notifyDataSetChanged()
+    }
+
+    fun getLastUserId(): Int {
+        return userList.last().id
     }
 }

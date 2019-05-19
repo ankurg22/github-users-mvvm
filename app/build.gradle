@@ -22,6 +22,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -34,6 +37,10 @@ dependencies {
 
     //ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.ext.lifecycleVersion"
+
+    //RxJava
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxJavaVersion"
 
     //Dagger2
     implementation "com.google.dagger:dagger-android:$rootProject.ext.daggerVersion"
@@ -48,6 +55,8 @@ dependencies {
 
     //Picasso
     implementation "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
+
+    kapt 'com.android.databinding:compiler:3.1.4'
 
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
 

@@ -1,27 +1,26 @@
 package com.example.githubusers.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
-import com.example.githubusers.Constants
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.example.githubusers.R
+import com.example.githubusers.databinding.ActivityMainBinding
 import com.example.githubusers.ui.userlist.UserListFragment
+import com.example.githubusers.utils.Constants
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_main.*
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val binding : ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         supportFragmentManager.beginTransaction()
-            .replace(activity_content.id, UserListFragment.newInstance(Constants.MODE_ALL, ""))
+            .replace(binding.activityContent.id, UserListFragment.newInstance(Constants.MODE_ALL, ""))
             .commit()
     }
 

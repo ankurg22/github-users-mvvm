@@ -1,12 +1,10 @@
 package com.example.githubusers.di.module
 
-import android.content.Context
-import com.example.githubusers.Constants
+import com.example.githubusers.utils.Constants
 import com.example.githubusers.remote.ApiClient
 import com.example.githubusers.remote.UserRepository
 import dagger.Module
 import dagger.Provides
-import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

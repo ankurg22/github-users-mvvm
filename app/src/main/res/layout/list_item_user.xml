@@ -1,25 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="horizontal"
-              android:layout_margin="1dp"
-              android:layout_width="match_parent"
-              android:layout_height="?listPreferredItemHeightLarge">
-    <ImageView
-            android:id="@+id/user_profile"
-            tools:src="@mipmap/ic_launcher"
-            android:layout_width="?listPreferredItemHeightLarge"
-            android:layout_height="match_parent"/>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-            android:layout_margin="8dp"
-            tools:text="User Login"
-            android:gravity="center_vertical"
-            android:fontFamily="sans-serif"
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.githubusers.ui.UserViewModel" />
+    </data>
+
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="?listPreferredItemHeightLarge"
+        android:layout_margin="1dp"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/user_profile"
+            android:layout_width="?listPreferredItemHeightLarge"
+            android:layout_height="match_parent"
+            app:imageUrl="@{viewModel.avatar}"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
             android:id="@+id/user_login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="8dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center_vertical"
+            android:text="@{viewModel.login}"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            tools:text="@tools:sample/full_names" />
 
-</LinearLayout>
+    </LinearLayout>
+</layout>

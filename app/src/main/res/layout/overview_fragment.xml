@@ -1,206 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:background="@drawable/gradient_background"
-    tools:context=".ui.overview.OverviewFragment">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="user"
+            type="com.example.githubusers.ui.UserViewModel" />
+    </data>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_background"
         tools:context=".ui.overview.OverviewFragment">
 
-        <com.google.android.material.card.MaterialCardView
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            tools:context=".ui.overview.OverviewFragment">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="100dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.498"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@mipmap/ic_launcher" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/login_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textAppearance="?android:textAppearanceMedium"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/profile_image"
-                    tools:text="ankurg22" />
-
-                <TextView
-                    android:id="@+id/name_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.498"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/login_text"
-                    tools:text="Ankur Gupta" />
-
-                <TextView
-                    android:id="@+id/bio_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/name_text"
-                    tools:text="Exploring new technologies in Android!" />
-
-                <TextView
-                    android:id="@+id/following_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    app:layout_constraintEnd_toStartOf="@+id/followers_text"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/bio_text"
-                    tools:text="Following (50)" />
-
-                <TextView
-                    android:id="@+id/followers_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/following_text"
-                    app:layout_constraintTop_toBottomOf="@+id/bio_text"
-                    tools:text="Followers (50)" />
-
-                <TextView
-                    android:id="@+id/repository_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    app:layout_constraintEnd_toStartOf="@+id/gist_text"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/following_text"
-                    tools:text="Repositories 26" />
-
-                <TextView
-                    android:id="@+id/gist_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/repository_text"
-                    app:layout_constraintTop_toBottomOf="@+id/followers_text"
-                    tools:text="Gists 0" />
-
-                <FrameLayout
-                    android:id="@+id/company_frame"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="16dp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/repository_text"
-                    tools:visibility="visible">
+                    <ImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="100dp"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.498"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@tools:sample/avatars" />
 
                     <TextView
-                        android:id="@+id/company_text"
-                        android:layout_width="match_parent"
+                        android:id="@+id/login_text"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_company"
-                        android:drawablePadding="8dp"
-                        android:gravity="center_vertical"
-                        tools:text="FOSSASIA" />
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/location_frame"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/company_frame"
-                    tools:visibility="visible">
+                        android:layout_marginTop="8dp"
+                        android:text="@{user.login}"
+                        android:textAppearance="?android:textAppearanceMedium"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/profile_image"
+                        tools:text="ankurg22" />
 
                     <TextView
-                        android:id="@+id/location_text"
-                        android:layout_width="match_parent"
+                        android:id="@+id/name_text"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_location"
-                        android:drawablePadding="8dp"
-                        android:gravity="center_vertical"
-                        tools:text="Delhi, India" />
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/blog_frame"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/location_frame"
-                    tools:visibility="visible">
+                        android:layout_marginTop="8dp"
+                        android:text="@{user.name}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.498"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/login_text"
+                        tools:text="Ankur Gupta" />
 
                     <TextView
-                        android:id="@+id/blog_text"
-                        android:layout_width="match_parent"
+                        android:id="@+id/bio_text"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_blog"
-                        android:drawablePadding="8dp"
-                        android:gravity="center_vertical"
-                        tools:text="https://medium.com/@ankurg22" />
-                </FrameLayout>
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@{user.bio}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/name_text"
+                        tools:text="Exploring new technologies in Android!" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
+                    <TextView
+                        android:id="@+id/following_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@{@string/following(user.following)}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        app:layout_constraintEnd_toStartOf="@+id/followers_text"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/bio_text"
+                        tools:text="Following (50)" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+                    <TextView
+                        android:id="@+id/followers_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@{@string/followers(user.followers)}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/following_text"
+                        app:layout_constraintTop_toBottomOf="@+id/bio_text"
+                        tools:text="Followers (50)" />
+
+                    <TextView
+                        android:id="@+id/repository_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@{@string/repository(user.repos)}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        app:layout_constraintEnd_toStartOf="@+id/gist_text"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/following_text"
+                        tools:text="Repositories 26" />
+
+                    <TextView
+                        android:id="@+id/gist_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@{@string/gist(user.gists)}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/repository_text"
+                        app:layout_constraintTop_toBottomOf="@+id/followers_text"
+                        tools:text="Gists 0" />
+
+                    <FrameLayout
+                        android:id="@+id/company_frame"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="16dp"
+                        android:visibility="@{user.company != null ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/repository_text"
+                        tools:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/company_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_company"
+                            android:drawablePadding="8dp"
+                            android:gravity="center_vertical"
+                            android:text="@{user.company}"
+                            tools:text="FOSSASIA" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/location_frame"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:visibility="@{user.location != null ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/company_frame"
+                        tools:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/location_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_location"
+                            android:drawablePadding="8dp"
+                            android:gravity="center_vertical"
+                            android:text="@{user.location}"
+                            tools:text="Delhi, India" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/blog_frame"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:visibility="@{user.blog != null ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/location_frame"
+                        tools:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/blog_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_blog"
+                            android:drawablePadding="8dp"
+                            android:gravity="center_vertical"
+                            android:text="@{user.blog}"
+                            tools:text="https://medium.com/@ankurg22" />
+                    </FrameLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
