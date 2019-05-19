@@ -1,6 +1,6 @@
 package com.example.githubusers.di.module
 
-import com.example.githubusers.MainActivity
+import com.example.githubusers.ui.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
