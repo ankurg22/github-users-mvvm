@@ -5,4 +5,5 @@
     <string name="following">Following (%1$s)</string>
     <string name="repository">Repositories (%1$s)</string>
     <string name="gist">Gists (%1$s)</string>
+    <string name="action_about">About Me</string>
 </resources>
